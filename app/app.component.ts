@@ -20,7 +20,6 @@ const createFormGroup = dataItem =>
     result: new FormControl(dataItem.result),
     assetClass: new FormControl(dataItem.assetClass),
     rmgComment: new FormControl(dataItem.covenant.rmgComment),
-    initialNonCompliance: new FormControl(dataItem.initialNonCompliance),
     calculatedStatusId: new FormControl(dataItem.calculatedStatusId),
     overrideStatusId: new FormControl(
       dataItem.covenant.overrideStatusId,

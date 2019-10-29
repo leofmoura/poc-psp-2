@@ -80,7 +80,7 @@ export class CovenantsService {
     let item = this.data
       .find(({ id }) => id === covenantForm.covenant.id);
     item.overrideStatusId = covenantForm.overrideStatusId;
-    item.waivedUntil = covenantForm.waivedUntil;
+    item.waivedUntil = covenantForm.covenant.waivedUntil;
     item.rmgComment = covenantForm.rmgComment;
   }
 

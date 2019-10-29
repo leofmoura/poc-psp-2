@@ -1,24 +1,26 @@
-<kendo-grid [data]="gridData" [filter]="filter" filterable="menu" (filterChange)="filterChange($event)" 
-(edit)="editHandler($event)" (cancel)="cancelHandler($event)" (save)="saveHandler($event)" [height]="'100%'">
-	<kendo-grid-column field="covenant.company" title="Company" width="100" [editable]="false">		
-    <ng-template kendoGridCellTemplate let-dataItem>
+<kendo-grid [data]="gridData" [filter]="filter" filterable="menu" (filterChange)="filterChange($event)"
+	(edit)="editHandler($event)" (cancel)="cancelHandler($event)" (save)="saveHandler($event)" [height]="'100%'">
+	<kendo-grid-column field="covenant.company" title="Company" width="100" [editable]="false">
+		<ng-template kendoGridCellTemplate let-dataItem>
 			<div *ngIf="dataItem.isParent">{{ dataItem.covenant.company }}</div>
 		</ng-template>
 	</kendo-grid-column>
 	<kendo-grid-column field="covenant.definition" title="Covenant" width="175" [editable]="false">
-    <ng-template kendoGridCellTemplate let-dataItem>
+		<ng-template kendoGridCellTemplate let-dataItem>
 			<div *ngIf="dataItem.isParent">{{ dataItem.covenant.definition }}</div>
 		</ng-template>
 	</kendo-grid-column>
 	<kendo-grid-column field="assetClassStatus.assetClass" title="Asset" width="45" [filterable]="false">
 	</kendo-grid-column>
-	<kendo-grid-column field="assetClassStatus.result" title="Result" width="150" [editable]="false" [filterable]="false">
+	<kendo-grid-column field="assetClassStatus.result" title="Result" width="150" [editable]="false"
+		[filterable]="false">
 		<ng-template kendoGridCellTemplate let-dataItem>
 			<div *ngIf="dataItem.isParent">{{dataItem.covenant.result}}</div>
 			<div *ngIf="dataItem.isChild">{{dataItem.assetClassStatus.result}}</div>
 		</ng-template>
 	</kendo-grid-column>
-	<kendo-grid-column field="covenant.rawStatuses" title="Calculated" width="75" [editable]="false" [filterable]="true">
+	<kendo-grid-column field="covenant.rawStatuses" title="Calculated" width="75" [editable]="false"
+		[filterable]="true">
 		<ng-template kendoGridCellTemplate let-dataItem>
 			<div *ngIf="dataItem.isParent">{{status(dataItem.covenant.calculatedStatusId)?.name}}</div>
 			<div *ngIf="dataItem.isChild">{{status((dataItem.assetClassStatus || {}).calculatedStatusId)?.name}}</div>
@@ -32,19 +34,21 @@
 			<kendo-dropdownlist #ddl="popupAnchor" popupAnchor [data]="statuses" textField="name" valueField="id"
 				[valuePrimitive]="true" [formControl]="formGroup.get('overrideStatusId')">
 			</kendo-dropdownlist>
-			<kendo-popup [anchor]="ddl.element"
-				*ngIf=""
+			<kendo-popup [anchor]="ddl.element" *ngIf=""
 				popupClass="k-widget k-tooltip k-tooltip-validation k-invalid-msg">
 				<span class="k-icon k-i-warning"></span>
 				Status is required
 			</kendo-popup>
 		</ng-template>
 	</kendo-grid-column>
-  
-	<kendo-grid-column field="waivedUntil" title="Waived Until" [editor]="'date'" [format]="{ date: 'yyyy-MM-DD' }"
-		width="100" [filterable]="false">
+
+	<kendo-grid-column field="covenant.waivedUntil" title="Waived Until" [format]="{ date: 'yyyy-MM-DD' }" width="125"
+		[filterable]="false">
+		<ng-template kendoGridEditTemplate let-column="column" let-formGroup="formGroup">
+			<input type="date" placeholder="Waived Until" #input class="k-textbox" width="100%" [formControl]="formGroup.get('waivedUntil')">
+		</ng-template>
 	</kendo-grid-column>
-  
+
 	<kendo-grid-column field="covenant.rmgComment" title="RMG Comments" width="200" [filterable]="false">
 		<ng-template kendoGridEditTemplate let-column="column" let-formGroup="formGroup">
 			<textarea placeholder="RMG Comment" #textarea class="k-textarea" width="100%" [formControl]="formGroup.get('rmgComment')">
@@ -52,7 +56,7 @@
 		</ng-template>
 	</kendo-grid-column>
 
-	<kendo-grid-column width="75">
+	<kendo-grid-column width="90">
 		<ng-template kendoGridCellTemplate let-dataItem="dataItem">
 			<button *ngIf="dataItem.isParent" kendoGridEditCommand mat-icon-button>
         <mat-icon>edit</mat-icon>
@@ -66,3 +70,5 @@
 		</ng-template>
 	</kendo-grid-column>
 </kendo-grid>
+
+{{ filter | json }}
