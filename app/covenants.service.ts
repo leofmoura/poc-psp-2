@@ -76,12 +76,12 @@ export class CovenantsService {
     return this.statuses.find(x => x.id === id).name;
   }
 
-  public save(covenant: any, isNew: boolean): void {
-    let item = this.data.find(({ id }) => id === covenant.covenant.id);
-    console.log(covenant);
-    item.covenant.overrideStatusId = covenant.overrideStatusId;
-    item.covenant.waivedUntil = covenant.waivedUntil;
-    item.covenant.rmgComment = covenant.rmgComment;
+  public save(covenantForm: any, isNew: boolean): void {
+    let item = this.data
+      .find(({ id }) => id === covenantForm.covenant.id);
+    item.overrideStatusId = covenantForm.overrideStatusId;
+    item.waivedUntil = covenantForm.waivedUntil;
+    item.rmgComment = covenantForm.rmgComment;
   }
 
   private parse(json) {
